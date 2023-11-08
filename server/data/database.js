@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 export const connectDB = async () => {
   try {
     const { connection } = await mongoose.connect(process.env.MONGO_URI, {
-      dbName: "PR_REACT_NATIVE_ECOMMERCE_2023",
+      dbName: "Adopet_Distribuidos",
     });
 
     console.log(`Server connected to database ${connection.host}`);

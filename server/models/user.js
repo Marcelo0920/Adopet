@@ -30,3 +30,5 @@ const schema = new mongoose.Schema({
     url: String,
   },
 });
+
+export const User = mongoose.model("User", schema);
