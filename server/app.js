@@ -3,9 +3,10 @@ import express from "express";
 
 //IMPORTING ROUTERS
 import user from "./routes/user.js";
+import adopcion from "./routes/adopcion.js";
 
 config({
-  path: "./data/config.env",
+  path: "./config/config.env",
 });
 
 export const app = express();
@@ -14,3 +15,4 @@ export const app = express();
 app.use(express.json());
 
 app.use("/api/v1/user", user);
+app.use("/api/v1/adopcion", adopcion);
