@@ -1,34 +1,34 @@
 import mongoose from "mongoose";
-import validator from "validator";
 
-const schema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, "El nombre es requerido"],
+    required: true,
   },
   apellido: {
     type: String,
-    required: [true, "El apellido es requerido"],
+    required: true,
   },
   email: {
     type: String,
-    unique: [true, "Este correo ya esta en uso"],
-    validate: validator.isEmail,
+    required: true,
   },
   telefono: {
     type: Number,
-    unique: [true, "Este numero ya esta en uso"],
-    validate: validator.isNumeric,
+    required: true,
   },
   password: {
     type: String,
-    required: [true, "La contrasenia es requerida"],
-    minLength: [6, "La contrasenia debe ser de al menos 6 caracteres"],
+    required: true,
+  },
+  role: {
+    type: String,
+    enum: ["user", "profesional", "cuidador"],
+    default: "user",
   },
   avatar: {
-    public_id: String,
-    url: String,
+    type: String,
   },
 });
 
-export const User = mongoose.model("User", schema);
+export const User = mongoose.model("user", UserSchema);
