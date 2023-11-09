@@ -1,19 +1,19 @@
 import mongoose from "mongoose";
 // import validator from "validator";
 
-const schema = new mongoose.Schema({
+const adopcionSchema = new mongoose.Schema({
   nombre: {
     type: String,
-    required: [true, "El nombre es requerido"],
+    required: true,
   },
   descripcion: {
     type: String,
-    required: [true, "La descripción es requerida"],
+    required: true,
   },
 
   especie: {
     type: String,
-    required: [true, "La especie es requerida"],
+    required: true,
   },
 
   raza: {
@@ -22,7 +22,7 @@ const schema = new mongoose.Schema({
 
   edad: {
     type: Number,
-    // validate: validator.isNumeric,
+    required: true,
   },
   image: {
     type: Array,
@@ -30,4 +30,4 @@ const schema = new mongoose.Schema({
   },
 });
 
-export const Adopcion = mongoose.model("Adopcion", schema);
+export const Adopcion = mongoose.model("Adopcion", adopcionSchema);
