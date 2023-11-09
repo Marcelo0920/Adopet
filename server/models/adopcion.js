@@ -26,7 +26,6 @@ const adopcionSchema = new mongoose.Schema({
   },
   image: {
     type: Array,
-    default: [],
   },
 });
 
