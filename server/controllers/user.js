@@ -39,12 +39,15 @@ export const login = async (req, res, next) => {
     const payload = {
       user: {
         id: user.id,
+        name: user.name,
+        role: user.role,
+        email: user.email,
       },
     };
 
     const token = await generateToken(payload);
 
-    res.json({ token });
+    res.json({ token: token, payload: payload });
   } catch (error) {
     next(error);
   }
