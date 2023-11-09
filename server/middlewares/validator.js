@@ -16,3 +16,11 @@ export const loginUser = [
     min: 6,
   }),
 ];
+
+export const mascotaAdopcion = [
+  check("nombre", "El nombre es requerido").notEmpty(),
+  check("descripcion", "La descripcion es requerida").notEmpty(),
+  check("edad", "La edad es requerida y debe ser un numero").notEmpty().isInt(),
+  check("especie", "La especie de la mascota es requerida").notEmpty(),
+  check("raza", "La raza de la mascota es requerida").notEmpty(),
+];

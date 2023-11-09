@@ -1,7 +1,14 @@
+import { validationResult } from "express-validator";
 import { Adopcion } from "../models/adopcion.js";
 import { uploadFile } from "../util/uploadFile.js";
 
 export const registrarAdopcion = async (req, res) => {
+  //validando los datos y mostrando los errores
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   const body = req.body;
   const image = await req.files.image;
 
