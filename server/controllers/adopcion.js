@@ -14,7 +14,9 @@ export const registrarAdopcion = async (req, res, next) => {
 
   try {
     const body = req.body;
-    const image = await req.files.image;
+    //const image = await req.files.image;
+
+    console.log(req.body);
 
     // if (image && image.length > 0) {
     let imgArr = [];
@@ -31,6 +33,7 @@ export const registrarAdopcion = async (req, res, next) => {
       image: imgArr,
       especie: body.especie,
       raza: body.raza,
+      image: body.image,
     }).save();
 
     return res.status(200).json({ newAdopcion });
