@@ -5,7 +5,7 @@ import { uploadFile } from "../util/uploadFile.js";
 //@desc POST mascota adopcion
 //@access User
 
-export const registrarAdopcion = async (req, res) => {
+export const registrarAdopcion = async (req, res, next) => {
   //validando los datos y mostrando los errores
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -35,7 +35,9 @@ export const registrarAdopcion = async (req, res) => {
 
     res.status(400).json({ message: "Se debe enviar una imagen" });
   } catch (error) {
+    console.log("aca");
     next(error);
+    console.log("por acaaaaa");
   }
 };
 
