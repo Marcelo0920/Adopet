@@ -2,6 +2,9 @@ import { validationResult } from "express-validator";
 import { Adopcion } from "../models/adopcion.js";
 import { uploadFile } from "../util/uploadFile.js";
 
+//@desc POST mascota adopcion
+//@access User
+
 export const registrarAdopcion = async (req, res) => {
   //validando los datos y mostrando los errores
   const errors = validationResult(req);
@@ -31,6 +34,37 @@ export const registrarAdopcion = async (req, res) => {
     }
 
     res.status(400).json({ message: "Se debe enviar una imagen" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+//@desc Get all adopcion
+//@access Public
+
+export const getAllAdopcion = async (req, res, next) => {
+  try {
+    const adopcion = await Adopcion.find().sort({ date: -1 });
+    res.send(adopcion);
+  } catch (error) {
+    next(error);
+  }
+};
+
+//@desc Get perdido by ID
+//@access Public
+
+export const getAdopcion = async (req, res, next) => {
+  try {
+    const adopcion = await Adopcion.findById(req.params.id);
+
+    if (!adopcion) {
+      return res
+        .status(404)
+        .json({ msg: "No existe la mascota que buscas :(" });
+    }
+
+    res.send(adopcion);
   } catch (error) {
     next(error);
   }
