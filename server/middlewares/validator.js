@@ -1,4 +1,4 @@
-import { check, validationResult } from "express-validator";
+import { check } from "express-validator";
 
 export const registerUser = [
   check("name", "El nombre es requerido").not().isEmpty(),

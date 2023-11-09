@@ -6,7 +6,7 @@ import { errorMiddleware } from "./middlewares/error.js";
 import user from "./routes/user.js";
 
 config({
-  path: "./data/config.env",
+  path: "./config/config.env",
 });
 
 export const app = express();
