@@ -24,10 +24,7 @@ export async function uploadFile(file) {
 
   // await fileUploadPromise;
 
-  console.log("fileRef", fileRef);
   const fileDownloadURL = await getDownloadURL(fileRef);
-
-  console.log("fileDownloadURL", fileDownloadURL);
 
   return { url: fileDownloadURL };
 }
