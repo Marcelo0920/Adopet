@@ -26,7 +26,6 @@ const perdidoSchema = new mongoose.Schema({
   },
   image: {
     type: Array,
-    default: [],
   },
   //visto por ultima vez
   ultima_vez: {
