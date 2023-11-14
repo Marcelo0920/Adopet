@@ -9,12 +9,7 @@ import { mascotaAdopcion } from "../middlewares/validator.js";
 
 const router = express.Router();
 
-router.post(
-  "/",
-  upload.fields([{ name: "image", maxCount: 3 }]),
-  mascotaAdopcion,
-  registrarAdopcion
-);
+router.post("/", mascotaAdopcion, registrarAdopcion);
 
 router.get("/", getAllAdopcion);
 

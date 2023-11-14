@@ -24,10 +24,7 @@ const perdidoSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  image: {
-    type: Array,
-    default: [],
-  },
+  image: [String],
   //visto por ultima vez
   ultima_vez: {
     type: String,

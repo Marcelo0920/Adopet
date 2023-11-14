@@ -13,29 +13,29 @@ export const registrarPerdido = async (req, res) => {
   }
 
   try {
-    const body = req.body;
-    const image = await req.files.image;
+    const {
+      nombre,
+      descripcion,
+      edad,
+      image,
+      especie,
+      raza,
+      ultima_vez,
+      recompensa,
+    } = req.body;
 
-    if (image && image.length > 0) {
-      let imgArr = [];
-      for (let i = 0; i < image.length; i++) {
-        imgArr.push(await uploadFile(image[i]));
-      }
-      const newPerdido = await new Perdido({
-        nombre: body.nombre,
-        descripcion: body.descripcion,
-        edad: parseInt(body.edad),
-        image: imgArr,
-        especie: body.especie,
-        raza: body.raza,
-        ultima_vez: body.ultima_vez,
-        recompensa: body.recompensa,
-      }).save();
+    const newPerdido = await new Perdido({
+      nombre,
+      descripcion,
+      edad,
+      image,
+      especie,
+      raza,
+      ultima_vez,
+      recompensa,
+    }).save();
 
-      return res.status(200).json({ newPerdido });
-    }
-
-    res.status(400).json({ message: "Se debe enviar una imagen" });
+    return res.status(200).json({ newPerdido });
   } catch (error) {
     next(error);
   }

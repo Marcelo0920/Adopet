@@ -24,9 +24,7 @@ const adopcionSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  image: {
-    type: Array,
-  },
+  image: [String],
 });
 
 export const Adopcion = mongoose.model("Adopcion", adopcionSchema);
