@@ -1,5 +1,4 @@
 import express from "express";
-import { upload } from "../config/multer.js";
 import { mascotaAdopcion } from "../middlewares/validator.js";
 import {
   getAllPerdidos,
@@ -9,12 +8,7 @@ import {
 
 const router = express.Router();
 
-router.post(
-  "/",
-  upload.fields([{ name: "image", maxCount: 3 }]),
-  mascotaAdopcion,
-  registrarPerdido
-);
+router.post("/", mascotaAdopcion, registrarPerdido);
 
 router.get("/", getAllPerdidos);
 

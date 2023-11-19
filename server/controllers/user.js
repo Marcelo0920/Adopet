@@ -5,7 +5,6 @@ import {
   encryptPassword,
   generateToken,
 } from "../middlewares/bcrypt.js";
-import { uploadFile } from "../util/uploadFile.js";
 
 //LOGIN USER
 export const login = async (req, res, next) => {
@@ -62,7 +61,8 @@ export const register = async (req, res, next) => {
     return res.status(400).json({ errors: errors.array() });
   }
   try {
-    const { name, apellido, email, telefono, password, role } = req.body;
+    const { name, apellido, email, telefono, password, role, avatar } =
+      req.body;
 
     //verify if user not cuidador
     if (role === "cuidador") {
@@ -70,15 +70,6 @@ export const register = async (req, res, next) => {
         msg: "No puedes asignarte como cuidador, solo un refugio/albergue puede hacerlo",
       });
     }
-
-    const avatar = await req.files.image;
-
-    if (avatar) {
-      avatar = await uploadFile(avatar);
-      console.log(avatar);
-    }
-
-    //add cloudinary here
 
     //encrypting pass
     const encryptedPassword = await encryptPassword(password);

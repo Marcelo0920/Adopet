@@ -1,6 +1,5 @@
 import { validationResult } from "express-validator";
 import { Adopcion } from "../models/adopcion.js";
-import { uploadFile } from "../util/uploadFile.js";
 
 //@desc POST mascota adopcion
 //@access User

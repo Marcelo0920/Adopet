@@ -25,6 +25,14 @@ const adopcionSchema = new mongoose.Schema({
     required: true,
   },
   image: [String],
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  status: {
+    type: String,
+    enum: ["pendiente", "validado", "rechazado", "observacion"],
+  },
 });
 
 export const Adopcion = mongoose.model("Adopcion", adopcionSchema);

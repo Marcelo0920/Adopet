@@ -1,5 +1,4 @@
 import { validationResult } from "express-validator";
-import { uploadFile } from "../util/uploadFile.js";
 import { Perdido } from "../models/perdido.js";
 
 //@desc POST mascota perdida

@@ -34,6 +34,14 @@ const perdidoSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  status: {
+    type: String,
+    enum: ["pendiente", "validado", "rechazado", "observacion"],
+  },
 });
 
 export const Perdido = mongoose.model("perdido", perdidoSchema);
