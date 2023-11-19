@@ -32,6 +32,7 @@ export const registrarPerdido = async (req, res) => {
       raza,
       ultima_vez,
       recompensa,
+      user: req.user._id,
     }).save();
 
     return res.status(200).json({ newPerdido });

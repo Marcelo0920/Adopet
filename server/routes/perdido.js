@@ -5,10 +5,11 @@ import {
   getPerdido,
   registrarPerdido,
 } from "../controllers/perdido.js";
+import { isAuthenticated } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.post("/", mascotaAdopcion, registrarPerdido);
+router.post("/", mascotaAdopcion, isAuthenticated, registrarPerdido);
 
 router.get("/", getAllPerdidos);
 

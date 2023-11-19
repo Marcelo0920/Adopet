@@ -19,6 +19,10 @@ const perdidoSchema = new mongoose.Schema({
   raza: {
     type: String,
   },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  },
 
   edad: {
     type: Number,

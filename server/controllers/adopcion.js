@@ -15,7 +15,7 @@ export const registrarAdopcion = async (req, res, next) => {
     const { nombre, descripcion, edad, image, especie, raza } = req.body;
     //const image = await req.files.image;
 
-    console.log(req.body);
+    //console.log(req.body);
 
     const newAdopcion = await new Adopcion({
       nombre,
@@ -24,14 +24,13 @@ export const registrarAdopcion = async (req, res, next) => {
       image,
       especie,
       raza,
+      user: req.user._id,
     }).save();
 
     return res.status(200).json({ newAdopcion });
     // }
   } catch (error) {
-    console.log("aca");
     next(error);
-    console.log("por acaaaaa");
   }
 };
 

@@ -1,10 +1,10 @@
 import { User } from "../models/user.js";
 import { validationResult } from "express-validator";
-import {
-  comparePassword,
-  encryptPassword,
-  generateToken,
-} from "../middlewares/bcrypt.js";
+import { comparePassword, encryptPassword } from "../middlewares/bcrypt.js";
+import ErrorHandler from "../utils/error.js";
+
+import { cookiesOptions } from "../utils/features.js";
+import { sendToken } from "../utils/features.js";
 
 //LOGIN USER
 export const login = async (req, res, next) => {
@@ -30,9 +30,7 @@ export const login = async (req, res, next) => {
     const isMatch = await comparePassword(password, user.password);
 
     if (!isMatch) {
-      return res
-        .status(400)
-        .json({ msg: "El email o la contrasenia son incorrectos" });
+      return next(new ErrorHandler("Email o contrasenia incorrecta", 400));
     }
 
     //Return jsonwebtoken
@@ -45,9 +43,11 @@ export const login = async (req, res, next) => {
       },
     };
 
-    const token = await generateToken(payload);
+    sendToken(res, `Bienvenido ${user.name}`, 200, payload);
 
-    res.json({ token: token, payload: payload });
+    /* const token = await generateToken(payload);
+
+    res.json({ token: token, payload: payload }); */
   } catch (error) {
     next(error);
   }
@@ -90,4 +90,17 @@ export const register = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+export const logOut = async (req, res, next) => {
+  res
+    .status(200)
+    .cookie("token", "", {
+      ...cookiesOptions,
+      expires: new Date(Date.now()),
+    })
+    .json({
+      success: true,
+      message: "Cerrado sesion con exito",
+    });
 };

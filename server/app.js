@@ -6,6 +6,7 @@ import { errorMiddleware } from "./middlewares/error.js";
 import user from "./routes/user.js";
 import adopcion from "./routes/adopcion.js";
 import perdido from "./routes/perdido.js";
+import cookieParser from "cookie-parser";
 
 config({
   path: "./config/config.env",
@@ -15,6 +16,7 @@ export const app = express();
 
 //using Middlewares
 app.use(express.json());
+app.use(cookieParser());
 
 //Using routes
 app.use("/api/v1/user", user);

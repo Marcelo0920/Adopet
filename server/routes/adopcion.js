@@ -5,10 +5,11 @@ import {
   registrarAdopcion,
 } from "../controllers/adopcion.js";
 import { mascotaAdopcion } from "../middlewares/validator.js";
+import { isAuthenticated } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.post("/", mascotaAdopcion, registrarAdopcion);
+router.post("/", isAuthenticated, mascotaAdopcion, registrarAdopcion);
 
 router.get("/", getAllAdopcion);
 
