@@ -10,6 +10,9 @@ const notificationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  estadoProceso: {
+    type: String,
+  },
   estado: {
     type: String,
     enum: ["unread", "read"],

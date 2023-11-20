@@ -1,5 +1,6 @@
 import { validationResult } from "express-validator";
 import { Perdido } from "../models/perdido.js";
+import { procesarRegistro } from "../services/procesarRegistro.js";
 
 //@desc POST mascota perdida
 //@access User
@@ -23,7 +24,12 @@ export const registrarPerdido = async (req, res) => {
       recompensa,
     } = req.body;
 
-    const newPerdido = await new Perdido({
+    res.status(202).json({
+      mensaje:
+        "Su registro está siendo analizado. Se le enviará una notificación.",
+    });
+
+    const datosRegistro = {
       nombre,
       descripcion,
       edad,
@@ -33,9 +39,10 @@ export const registrarPerdido = async (req, res) => {
       ultima_vez,
       recompensa,
       user: req.user._id,
-    }).save();
+      tipoRegistro: "perdido",
+    };
 
-    return res.status(200).json({ newPerdido });
+    await procesarRegistro(datosRegistro);
   } catch (error) {
     next(error);
   }

@@ -1,5 +1,6 @@
 import { validationResult } from "express-validator";
 import { Adopcion } from "../models/adopcion.js";
+import { procesarRegistro } from "../services/procesarRegistro.js";
 
 //@desc POST mascota adopcion
 //@access User
@@ -13,21 +14,25 @@ export const registrarAdopcion = async (req, res, next) => {
 
   try {
     const { nombre, descripcion, edad, image, especie, raza } = req.body;
-    //const image = await req.files.image;
 
-    //console.log(req.body);
+    res.status(202).json({
+      mensaje:
+        "Su registro está siendo analizado. Se le enviará una notificación.",
+    });
 
-    const newAdopcion = await new Adopcion({
+    const datosRegistro = {
       nombre,
       descripcion,
       edad,
-      image,
       especie,
       raza,
+      image,
+      tipoRegistro: "adopcion",
       user: req.user._id,
-    }).save();
+    };
 
-    return res.status(200).json({ newAdopcion });
+    await procesarRegistro(datosRegistro);
+
     // }
   } catch (error) {
     next(error);
