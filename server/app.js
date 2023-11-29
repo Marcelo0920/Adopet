@@ -1,6 +1,7 @@
 import { config } from "dotenv";
 import express from "express";
 import { errorMiddleware } from "./middlewares/error.js";
+import cors from "cors";
 
 //IMPORTING ROUTERS
 import user from "./routes/user.js";
@@ -15,6 +16,8 @@ config({
 export const app = express();
 
 //using Middlewares
+
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 

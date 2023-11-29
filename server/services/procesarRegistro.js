@@ -1,6 +1,8 @@
 import { Adopcion } from "../models/adopcion.js";
 import { Perdido } from "../models/perdido.js";
 
+import { getIO } from "../config/socket.js";
+
 import { sendNotification } from "./sendNotification.js";
 
 //Funcion asincrona para procesar la adopcion en segundo plano
@@ -25,7 +27,11 @@ export const procesarRegistro = async (datosRegistro) => {
           user: datosRegistro.user,
         }).save();
 
-        console.log(newAdopcion);
+        const io = getIO();
+        io.emit("actualizacionRegistros", {
+          tipoRegistro: datosRegistro.tipoRegistro,
+          data: datosRegistro,
+        });
 
         console.log("Enviando Notificacion");
 
@@ -52,8 +58,6 @@ export const procesarRegistro = async (datosRegistro) => {
           recompensa: datosRegistro.recompensa,
           user: datosRegistro.user,
         }).save();
-
-        console.log(newPerdido);
 
         console.log("Enviando Notificacion");
 

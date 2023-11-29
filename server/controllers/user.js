@@ -85,7 +85,6 @@ export const register = async (req, res, next) => {
 
     await user.save();
 
-    console.log(user);
     res.status(201).json({ success: true, message: "registrado con exito" });
   } catch (error) {
     next(error);

@@ -7,10 +7,15 @@ export const sendToken = async (res, message, statusCode, payload) => {
     .status(statusCode)
     .cookie("token", token, {
       ...cookiesOptions,
-      expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 10000),
+      expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
     })
     .json({
       success: true,
+      user: {
+        name: payload.user.name,
+        role: payload.user.role,
+        email: payload.user.email,
+      },
       message: message,
     });
 };
@@ -20,3 +25,4 @@ export const cookiesOptions = {
   httpOnly: process.env.NODE_ENV === "Development" ? false : true,
   sameSite: process.env.NODE_ENV === "Development" ? false : "none",
 };
+``;
