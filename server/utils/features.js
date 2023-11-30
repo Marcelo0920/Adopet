@@ -11,6 +11,7 @@ export const sendToken = async (res, message, statusCode, payload) => {
     })
     .json({
       success: true,
+      token: token,
       user: {
         name: payload.user.name,
         role: payload.user.role,

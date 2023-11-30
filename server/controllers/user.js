@@ -103,3 +103,17 @@ export const logOut = async (req, res, next) => {
       message: "Cerrado sesion con exito",
     });
 };
+
+export const getMyProfile = async (req, res, next) => {
+  try {
+    console.log(req.user);
+    const user = await User.findById(req.user._id).select("-password");
+
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
