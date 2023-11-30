@@ -5,7 +5,7 @@ export const sendToken = async (res, message, statusCode, user, payload) => {
 
   res
     .status(statusCode)
-    /* .cookie("token", token, {
+    /*  .cookie("token", token, {
       ...cookiesOptions,
       expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
     }) */

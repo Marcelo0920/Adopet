@@ -15,11 +15,6 @@ export const registrarAdopcion = async (req, res, next) => {
   try {
     const { nombre, descripcion, edad, image, especie, raza } = req.body;
 
-    res.status(202).json({
-      mensaje:
-        "Su registro está siendo analizado. Se le enviará una notificación.",
-    });
-
     const datosRegistro = {
       nombre,
       descripcion,
@@ -30,6 +25,12 @@ export const registrarAdopcion = async (req, res, next) => {
       tipoRegistro: "adopcion",
       user: req.user._id,
     };
+
+    res.status(202).json({
+      mensaje:
+        "Su registro está siendo analizado. Se le enviará una notificación.",
+      datosRegistro,
+    });
 
     await procesarRegistro(datosRegistro);
 
