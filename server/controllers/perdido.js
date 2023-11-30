@@ -24,11 +24,6 @@ export const registrarPerdido = async (req, res) => {
       recompensa,
     } = req.body;
 
-    res.status(202).json({
-      mensaje:
-        "Su registro está siendo analizado. Se le enviará una notificación.",
-    });
-
     const datosRegistro = {
       nombre,
       descripcion,
@@ -41,6 +36,12 @@ export const registrarPerdido = async (req, res) => {
       user: req.user._id,
       tipoRegistro: "perdido",
     };
+
+    res.status(202).json({
+      mensaje:
+        "Su registro está siendo analizado. Se le enviará una notificación.",
+      datosRegistro,
+    });
 
     await procesarRegistro(datosRegistro);
   } catch (error) {
