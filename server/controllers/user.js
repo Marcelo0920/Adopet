@@ -43,7 +43,7 @@ export const login = async (req, res, next) => {
       },
     };
 
-    sendToken(res, `Bienvenido ${user.name}`, 200, payload);
+    sendToken(res, `Bienvenido ${user.name}`, 200, user, payload);
 
     /* const token = await generateToken(payload);
 

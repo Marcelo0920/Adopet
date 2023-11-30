@@ -1,22 +1,18 @@
 import { generateToken } from "../middlewares/bcrypt.js";
 
-export const sendToken = async (res, message, statusCode, payload) => {
+export const sendToken = async (res, message, statusCode, user, payload) => {
   const token = await generateToken(payload);
 
   res
     .status(statusCode)
-    .cookie("token", token, {
+    /* .cookie("token", token, {
       ...cookiesOptions,
       expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
-    })
+    }) */
     .json({
       success: true,
       token: token,
-      user: {
-        name: payload.user.name,
-        role: payload.user.role,
-        email: payload.user.email,
-      },
+      user: user,
       message: message,
     });
 };
