@@ -28,7 +28,7 @@ export const procesarRegistro = async (datosRegistro) => {
         }).save();
 
         const io = getIO();
-        io.emit("actualizacionRegistros", {
+        io.emit("actualizacionRegistrosAdopcion", {
           tipoRegistro: datosRegistro.tipoRegistro,
           data: datosRegistro,
         });
@@ -58,6 +58,12 @@ export const procesarRegistro = async (datosRegistro) => {
           recompensa: datosRegistro.recompensa,
           user: datosRegistro.user,
         }).save();
+
+        const io = getIO();
+        io.emit("actualizacionRegistrosPerdido", {
+          tipoRegistro: datosRegistro.tipoRegistro,
+          data: datosRegistro,
+        });
 
         console.log("Enviando Notificacion");
 
