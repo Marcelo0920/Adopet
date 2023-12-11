@@ -10,7 +10,7 @@ export const comparePassword = async (password, userPassword) => {
   return await bcrypt.compare(password, userPassword);
 };
 
-export const generateToken = async (payload, expiresIn = 3600) => {
+export const generateToken = async (payload, expiresIn) => {
   const JWT_SECRET = process.env.JWT_SECRET;
   return jwt.sign(payload, JWT_SECRET, { expiresIn });
 };

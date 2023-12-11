@@ -1,7 +1,7 @@
 import { generateToken } from "../middlewares/bcrypt.js";
 
 export const sendToken = async (res, message, statusCode, user, payload) => {
-  const token = await generateToken(payload);
+  const token = await generateToken(payload, 360000);
 
   res
     .status(statusCode)
