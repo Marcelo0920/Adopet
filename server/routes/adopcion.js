@@ -11,7 +11,7 @@ import { isAdmin, isAuthenticated } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.post("/", isAuthenticated, mascotaAdopcion, registrarAdopcion);
+router.post("/", isAuthenticated, registrarAdopcion);
 
 router.get("/", getAllAdopcion);
 
