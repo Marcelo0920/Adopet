@@ -1,5 +1,5 @@
 import express from "express";
-import { mascotaAdopcion } from "../middlewares/validator.js";
+import { mascotaAdopcion, mascotaPerdido } from "../middlewares/validator.js";
 import {
   getAllPerdidos,
   getAllPerdidosAdmin,
@@ -11,7 +11,7 @@ import { isAuthenticated } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.post("/", mascotaAdopcion, isAuthenticated, registrarPerdido);
+router.post("/", mascotaPerdido, isAuthenticated, registrarPerdido);
 
 router.get("/", getAllPerdidos);
 
