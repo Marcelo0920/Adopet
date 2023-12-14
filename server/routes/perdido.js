@@ -11,7 +11,7 @@ import { isAuthenticated } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.post("/", mascotaPerdido, isAuthenticated, registrarPerdido);
+router.post("/", isAuthenticated, registrarPerdido);
 
 router.get("/", getAllPerdidos);
 
