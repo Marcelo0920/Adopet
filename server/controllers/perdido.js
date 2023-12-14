@@ -70,9 +70,10 @@ export const getAllPerdidos = async (req, res, next) => {
 
 export const getAllPerdidosAdmin = async (req, res, next) => {
   try {
-    const perdidos = await Perdido.find({ status: { $eq: "pendiente" } }).sort({
-      date: -1,
-    });
+    const perdidos =
+      await Perdido.find(/* { status: { $eq: "pendiente" } } */).sort({
+        date: -1,
+      });
     res.send(perdidos);
   } catch (error) {
     next(error);
