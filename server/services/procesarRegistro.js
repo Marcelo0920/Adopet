@@ -30,10 +30,12 @@ export const procesarRegistro = async (datosRegistro) => {
         }).save();
 
         const io = getIO();
-        io.emit("actualizacionRegistrosAdopcion", {
-          tipoRegistro: datosRegistro.tipoRegistro,
-          data: datosRegistro,
-        });
+        if (datosRegistro.status === "validado") {
+          io.emit("actualizacionRegistrosAdopcion", {
+            tipoRegistro: datosRegistro.tipoRegistro,
+            data: datosRegistro,
+          });
+        }
 
         console.log("Enviando Notificacion");
 
