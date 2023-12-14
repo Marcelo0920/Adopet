@@ -35,12 +35,10 @@ const adopcionSchema = new mongoose.Schema({
   },
   mood: {
     type: String,
-    required: true,
     enum: ["hiper-activo", "activo", "calmado", "dormilon"],
   },
   sexo: {
     type: String,
-    required: true,
     enum: ["macho", "hembra"],
   },
   status: {
