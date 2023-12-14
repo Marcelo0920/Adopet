@@ -23,6 +23,8 @@ export const mascotaAdopcion = [
   check("edad", "La edad es requerida y debe ser un numero").notEmpty().isInt(),
   check("especie", "La especie de la mascota es requerida").notEmpty(),
   check("raza", "La raza de la mascota es requerida").notEmpty(),
+  check("mood", "La raza de la mascota es requerida").notEmpty(),
+  check("sexo", "La raza de la mascota es requerida").notEmpty(),
 ];
 
 export const mascotaPerdido = [

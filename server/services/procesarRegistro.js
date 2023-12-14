@@ -24,6 +24,8 @@ export const procesarRegistro = async (datosRegistro) => {
           image: datosRegistro.image,
           especie: datosRegistro.especie,
           raza: datosRegistro.raza,
+          sexo: datosRegistro.sexo,
+          mood: datosRegistro.mood,
           user: datosRegistro.user,
         }).save();
 
@@ -91,6 +93,7 @@ export const procesarRegistro = async (datosRegistro) => {
 
     console.log("Procesamiento completo ");
   } catch (error) {
+    console.log(error);
     console.error("Error durante el procesamiento");
   }
 };

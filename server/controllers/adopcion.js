@@ -9,11 +9,13 @@ export const registrarAdopcion = async (req, res, next) => {
   //validando los datos y mostrando los errores
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
+    console.log("VALIDATION ERROR");
     return res.status(400).json({ errors: errors.array() });
   }
 
   try {
-    const { nombre, descripcion, edad, image, especie, raza } = req.body;
+    const { nombre, descripcion, edad, image, especie, raza, sexo, mood } =
+      req.body;
 
     const datosRegistro = {
       nombre,
@@ -22,6 +24,8 @@ export const registrarAdopcion = async (req, res, next) => {
       especie,
       raza,
       image,
+      sexo,
+      mood,
       tipoRegistro: "adopcion",
       user: req.user._id,
     };
