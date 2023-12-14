@@ -56,7 +56,7 @@ export const login = async (req, res, next) => {
 //CREATE USER
 export const register = async (req, res, next) => {
   const errors = validationResult(req);
-  console.log(req.body);
+
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
@@ -106,7 +106,6 @@ export const logOut = async (req, res, next) => {
 
 export const getMyProfile = async (req, res, next) => {
   try {
-    console.log(req.user);
     const user = await User.findById(req.user._id).select("-password");
 
     res.status(200).json({

@@ -1,6 +1,8 @@
 import { validationResult } from "express-validator";
 import { Perdido } from "../models/perdido.js";
 import { procesarRegistro } from "../services/procesarRegistro.js";
+import { sendNotification } from "../services/sendNotification.js";
+import { getIO } from "../config/socket.js";
 
 //@desc POST mascota perdida
 //@access User
@@ -54,7 +56,23 @@ export const registrarPerdido = async (req, res) => {
 
 export const getAllPerdidos = async (req, res, next) => {
   try {
-    const perdidos = await Perdido.find().sort({ date: -1 });
+    const perdidos = await Perdido.find({ status: { $eq: "validado" } }).sort({
+      date: -1,
+    });
+    res.send(perdidos);
+  } catch (error) {
+    next(error);
+  }
+};
+
+//@desc Get all perdidos via ADMIN
+//@access Admin
+
+export const getAllPerdidosAdmin = async (req, res, next) => {
+  try {
+    const perdidos = await Perdido.find({ status: { $eq: "pendiente" } }).sort({
+      date: -1,
+    });
     res.send(perdidos);
   } catch (error) {
     next(error);
@@ -76,6 +94,72 @@ export const getPerdido = async (req, res, next) => {
 
     res.send(perdido);
   } catch (error) {
+    next(error);
+  }
+};
+
+// Aprobar o rechazar un registro por un Admin
+
+export const updateRegistroPerdidoAdmin = async (req, res, next) => {
+  try {
+    const perdido = await Perdido.findById(req.params.id);
+
+    if (!perdido) {
+      return res
+        .status(404)
+        .json({ msg: "No existe la mascota que buscas :(" });
+    }
+
+    if (perdido.status !== "pendiente") {
+      return res
+        .status(401)
+        .json({ msg: "Este registro ya ha sido procesado por un Admin" });
+    }
+
+    const { resultadoAdmin } = req.body;
+
+    let notification;
+
+    if (resultadoAdmin === "rechazado") {
+      perdido.status = "rechazado";
+
+      notification = {
+        usuario: perdido.user,
+        mensaje: "Tu registro ha sido rechazado :(",
+        estadoProceso: "rechazado",
+        description:
+          "Tu registro de mascota perdida no ha pasado los filtros y no es apta para que todo el mundo la vea :(",
+        usuarioActioner: "admin",
+      };
+    }
+    if (resultadoAdmin === "validado") {
+      perdido.status = "validado";
+
+      notification = {
+        usuario: perdido.user,
+        mensaje: "Tu registro ha sido aceptado!",
+        estadoProceso: "aceptado",
+        description:
+          "Tu registro de mascota perdida ha pasado los filtros y es apta para que todo el mundo la vea!",
+        usuarioActioner: "admin",
+      };
+    }
+
+    await perdido.save();
+
+    await sendNotification(notification);
+
+    const io = getIO();
+    io.emit("notificationRegistro", {
+      notification: notification,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Registro procesado con Exito",
+    });
+  } catch (error) {
+    console.log({ "Error en el update de perdido": error });
     next(error);
   }
 };

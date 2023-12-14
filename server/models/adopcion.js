@@ -45,7 +45,7 @@ const adopcionSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["pendiente", "validado", "rechazado", "observacion"],
+    enum: ["pendiente", "validado", "rechazado", "adoptado"],
     default: "pendiente",
   },
   ubicacion: {
